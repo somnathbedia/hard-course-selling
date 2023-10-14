@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-// const secret = require("./adminSignup");
+require('dotenv').config();
+
 
 
 exports.adminSignin = async (req, res) => {
@@ -9,7 +10,7 @@ exports.adminSignin = async (req, res) => {
     console.log(admin);
     if (admin) {
         
-        const token = jwt.sign({ username }, secret.secret, { expiresIn: "1h" });
+        const token = jwt.sign({ username }, process.env.SECRET_KEY, { expiresIn: "1h" });
         res.json({ msg: "Admin logged in", token });
     } else {
         res.status(404).json({ msg: "invalid username or password" });
